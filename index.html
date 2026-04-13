@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>検索</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      font-family: sans-serif;
+    }
+
+    body {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wrap {
+      position: absolute;
+      top: 25vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(92vw, 520px);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      height: 52px;
+      box-sizing: border-box;
+      padding: 0 14px;
+      font-size: 16px;
+      border: 1px solid #cfcfcf;
+      border-radius: 14px;
+      outline: none;
+      background: #fff;
+    }
+
+    .search-input:focus {
+      border-color: #999;
+    }
+
+    .search-button {
+      height: 52px;
+      padding: 0 18px;
+      font-size: 16px;
+      border: none;
+      border-radius: 14px;
+      background: #222;
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .search-button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="search-row">
+      <input
+        id="keyword"
+        class="search-input"
+        type="text"
+        placeholder="検索語を入力"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        enterkeyhint="search"
+        autofocus
+      >
+      <button id="searchBtn" class="search-button">検索</button>
+    </div>
+  </div>
+
+  <script>
+    function doSearch() {
+      const keyword = document.getElementById('keyword').value.trim();
+      if (!keyword) return;
+      location.href = 'https://www.google.com/search?q=' + encodeURIComponent(keyword);
+    }
+
+    const input = document.getElementById('keyword');
+
+    // 検索ボタン
+    document.getElementById('searchBtn').addEventListener('click', doSearch);
+
+    // Enterキー
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        doSearch();
+      }
+    });
+
+    // 最初のタップで確実にフォーカス
+    document.body.addEventListener('click', function () {
+      input.focus();
+    }, { once: true });
+  </script>
+</body>
+</html>
