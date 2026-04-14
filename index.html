@@ -88,10 +88,16 @@
   <script>
     function doSearch(addParam = false) {
       const keyword = document.getElementById('keyword').value.trim();
-      if (!keyword) return;
-
-      let url = 'https://www.google.com/search?q=' + encodeURIComponent(keyword);
-
+    
+      const baseUrl = 'https://www.google.com/';
+    
+      if (!keyword) {
+        location.href = baseUrl;
+        return;
+      }
+    
+      let url = baseUrl + 'search?q=' + encodeURIComponent(keyword);
+    
       if (addParam) {
         url += '&udm=14';
       }
