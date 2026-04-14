@@ -81,30 +81,39 @@
         enterkeyhint="search"
         autofocus
       >
-      <button id="searchBtn" class="search-button">検索</button>
+      <button id="searchBtn" class="search-button">ウェブ検索</button>
     </div>
   </div>
 
   <script>
-    function doSearch() {
+    function doSearch(addParam = false) {
       const keyword = document.getElementById('keyword').value.trim();
       if (!keyword) return;
-      location.href = 'https://www.google.com/search?q=' + encodeURIComponent(keyword);
+
+      let url = 'https://www.google.com/search?q=' + encodeURIComponent(keyword);
+
+      if (addParam) {
+        url += '&udm=14';
+      }
+
+      location.href = url;
     }
 
     const input = document.getElementById('keyword');
 
-    // 検索ボタン
-    document.getElementById('searchBtn').addEventListener('click', doSearch);
+    // 検索ボタン（パラメータ付き）
+    document.getElementById('searchBtn').addEventListener('click', function () {
+      doSearch(true);
+    });
 
-    // Enterキー
+    // Enterキー（通常検索）
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') {
-        doSearch();
+        doSearch(false);
       }
     });
 
-    // 最初のタップで確実にフォーカス
+    // 初回のタップでキーボード表示
     document.body.addEventListener('click', function () {
       input.focus();
     }, { once: true });
